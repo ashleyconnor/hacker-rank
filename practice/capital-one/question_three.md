@@ -1,14 +1,21 @@
 ```ruby
 
-def maximumSum(arr)
-    max_so_far = 0
-    max_ending_here = 0
+def maxSubarray(arr)
+    sub_max_sum_so_far = -10 ** 4
+    seq_max_sum = -10 ** 4
+    sub_max_sum_ending_here = 0
 
     arr.each do |element|
-        max_ending_here = [max_ending_here + element, 0].max
-        max_so_far = [max_ending_here, max_so_far].max
+        seq_max_sum ||= element
+        sub_max_sum_so_far ||= element
+
+        seq_max_sum = [seq_max_sum + element, element, seq_max_sum].max
+        puts "Seq max sum: #{seq_max_sum}"
+
+        sub_max_sum_ending_here = [sub_max_sum_ending_here + element, element].max
+        sub_max_sum_so_far = [sub_max_sum_ending_here, sub_max_sum_so_far].max
     end
 
-    max_so_far
+    [sub_max_sum_so_far, seq_max_sum]
 end
 ```
